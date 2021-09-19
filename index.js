@@ -26,7 +26,8 @@ client.connect(err => {
     const collection = client.db("wordsDictionary").collection("words");
 
     console.log("unsuccecfull", err);
-    // All services
+
+    // Add word to db
     app.post('/addWord', (req, res) => {
         const newWord = req.body;
         collection.insertOne(newWord)
@@ -34,6 +35,16 @@ client.connect(err => {
                 res.send(result.insertedCount > 0)
             })
     });
+
+    // get user specific word collection
+    app.get('/getWords/:id', (req, res) => {
+        const email = req.params.id;
+        collection.find({ userEmail: email })
+            .toArray((err, words) => {
+                res.send(words);
+            })
+    })
+
 
 });
 
