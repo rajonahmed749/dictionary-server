@@ -13,7 +13,6 @@ app.use(cors())
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@dictionaryapp.uer2f.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bqa8e.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -24,7 +23,6 @@ app.get('/', (req, res) => {
 
 client.connect(err => {
     const collection = client.db("wordsDictionary").collection("words");
-
     console.log("unsuccecfull", err);
 
     // Add word to db
@@ -45,9 +43,7 @@ client.connect(err => {
             })
     })
 
-
 });
-
 
 
 app.listen(process.env.PORT || port)
